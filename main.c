@@ -162,15 +162,15 @@ int main(void){
   		if (flag == 1){
   			for (k = 0; k < 1024; k++){
   				kfloat = (float)(k);
-  				frame1_hamming[k] = frame1[k]*(alpha - 								(beta*(cos((2.000*PI*(kfloat+1.000))/(N-1.000)))));
+  				frame1_hamming[k] = frame1[k]*(alpha - (beta*(cos((2.000*PI*(kfloat+1.000))/(N-1.000)))));
   			}
 
   			for (k = 0; k < K; k++){
   				kfloat = (float)(k);
   				for (l = 0; l < 1024; l++){
   					lfloat = (float)(l);
-  					realsum += frame1_hamming[l]*cos((-									2.000*PI*kfloat*(lfloat+1.000))/N);
-  					imagsum += frame1_hamming[l]*sin((-									2.000*PI*kfloat*(lfloat+1.000))/N);
+  					realsum += frame1_hamming[l]*cos((-2.000*PI*kfloat*(lfloat+1.000))/N);
+  					imagsum += frame1_hamming[l]*sin((-2.000*PI*kfloat*(lfloat+1.000))/N);
   				}
   				psd[k] = (((realsum*realsum) + (imagsum*imagsum))/N);
   				realsum = 0;
