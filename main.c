@@ -63,57 +63,58 @@ int check;
 int user;
 
 interrupt void interrupt4(void){
-sw5 = LCDK_SWITCH_state(5);
-sw6 = LCDK_SWITCH_state(6);
-sw7 = LCDK_SWITCH_state(7);
-sw8 = LCDK_SWITCH_state(8);
-
-if (sw5 == 0 && sw6 == 0 && sw7 == 0 && sw8 == 0){
-LCDK_LED_off(4);
-LCDK_LED_off(5);
-LCDK_LED_off(6);
-LCDK_LED_off(7);
-output_left_sample(0);
-temp = counter;
-}
-else{
-if (sw5 == 1 && ((sw6 + sw7 + sw8) == 0)){
-if (counter < 8000+temp){
-LCDK_LED_on(4);
-LCDK_LED_off(5);
-LCDK_LED_off(6);
-LCDK_LED_off(7);
-counter++;
-}
-else if (counter < 16000+temp){
-LCDK_LED_off(4);
-LCDK_LED_on(5);
-counter++;
-}
-else if (counter < 24000+temp){
-LCDK_LED_off(5);
-LCDK_LED_on(6);
-counter++;
-m = 0;
-}
-else if (counter < 25024+temp){
-LCDK_LED_off(6);
-LCDK_LED_on(7);
-float input = input_sample();
-if(m<8000){
-frame1[m] = input;
-m++;
-}
-counter++;
-}
-else{
-LCDK_LED_off(7);
-counter++;
-flag = 1;
-}
-output_left_sample(0);
-}
-return;
+  sw5 = LCDK_SWITCH_state(5);
+  sw6 = LCDK_SWITCH_state(6);
+  sw7 = LCDK_SWITCH_state(7);
+  sw8 = LCDK_SWITCH_state(8);
+  
+  if (sw5 == 0 && sw6 == 0 && sw7 == 0 && sw8 == 0){
+    LCDK_LED_off(4);
+    LCDK_LED_off(5);
+    LCDK_LED_off(6);
+    LCDK_LED_off(7);
+    output_left_sample(0);
+    temp = counter;
+  }
+  else{
+    if (sw5 == 1 && ((sw6 + sw7 + sw8) == 0)){
+      if (counter < 8000+temp){
+        LCDK_LED_on(4);
+        LCDK_LED_off(5);
+        LCDK_LED_off(6);
+        LCDK_LED_off(7);
+        counter++;
+      }
+      else if (counter < 16000+temp){
+        LCDK_LED_off(4);
+        LCDK_LED_on(5);
+        counter++;
+      }
+      else if (counter < 24000+temp){
+        LCDK_LED_off(5);
+        LCDK_LED_on(6);
+        counter++;
+        m = 0;
+      }
+      else if (counter < 25024+temp){
+        LCDK_LED_off(6);
+        LCDK_LED_on(7);
+        float input = input_sample();
+        if(m<8000){
+          frame1[m] = input;
+          m++;
+        }
+        counter++;
+      }
+      else{
+        LCDK_LED_off(7);
+        counter++;
+        flag = 1;
+      }
+      output_left_sample(0);
+    }
+    return;
+  }
 }
 
 int main(void){
@@ -236,7 +237,7 @@ int main(void){
   					whbreak = 1;
   				}
   				else if (check == 0){
-  					printf("Please enter the correct vowel. Enter '0' for 'ah', 					'1' for 'eh', '2' for 'ee', or '3' for 'oo'. \n");
+  					printf("Please enter the correct vowel. Enter '0' for 'ah', '1' for 'eh', '2' for 'ee', or '3' for 'oo'. \n");
   					scanf("%d", &user);
   					if (user == 0){
   						strcpy(corr_vowel, "ah");
@@ -266,28 +267,28 @@ int main(void){
   			if (strcmp(corr_vowel, "ah") == 0){
   				ahcount++;
   				for (i = 0; i < Z; i++){
-MFCCah[i] = (((MFCCah[i]*(ahcount - 1)) + MFCC[i])/ahcount);
+            MFCCah[i] = (((MFCCah[i]*(ahcount - 1)) + MFCC[i])/ahcount);
   				}
   			}
 
   			if (strcmp(corr_vowel, "eh") == 0){
   				ehcount++;
   				for (i = 0; i < Z; i++){
-MFCCeh[i] = (((MFCCeh[i]*(ehcount - 1)) + MFCC[i])/ehcount);
+            MFCCeh[i] = (((MFCCeh[i]*(ehcount - 1)) + MFCC[i])/ehcount);
   				}
   			}
 
   			if (strcmp(corr_vowel, "ee") == 0){
   				eecount++;
   				for (i = 0; i < Z; i++){
-MFCCee[i] = (((MFCCee[i]*(eecount - 1)) + MFCC[i])/eecount);
+            MFCCee[i] = (((MFCCee[i]*(eecount - 1)) + MFCC[i])/eecount);
   				}
   			}
 
   			if (strcmp(corr_vowel, "oo") == 0){
   				oocount++;
   				for (i = 0; i < Z; i++){
-MFCCoo[i] = (((MFCCoo[i]*(oocount - 1)) + MFCC[i])/oocount);
+            MFCCoo[i] = (((MFCCoo[i]*(oocount - 1)) + MFCC[i])/oocount);
   				}
   			}
 
@@ -306,7 +307,7 @@ MFCCoo[i] = (((MFCCoo[i]*(oocount - 1)) + MFCC[i])/oocount);
   		sw8 = LCDK_SWITCH_state(8);
 
   		if (sw5 == 0 && sw6 == 0 && sw7 == 0 && sw8 == 0){
-L138_initialise_intr(FS_16000_HZ,ADC_GAIN_24DB,DAC_ATTEN_0DB,LCDK_MIC_INPU T);
+        L138_initialise_intr(FS_16000_HZ,ADC_GAIN_24DB,DAC_ATTEN_0DB,LCDK_MIC_INPU T);
   		}
   	}
 }
